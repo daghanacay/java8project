@@ -2,6 +2,8 @@ package examples.lambda.functional.interfac;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -31,4 +33,11 @@ public class SomeClassTest {
     System.out.println(result2);
   }
 
+  @Test
+  public void testIntLambdaRepo() {
+    final Integer result = classUnderTest.collectDataGeneric(Arrays.asList(1, 2, 3),
+        ConcatFunctions.INTEGER_TIMES_TEN_CONCATINATOR);
+    assertEquals(60, result.intValue());
+    System.out.println(result);
+  }
 }

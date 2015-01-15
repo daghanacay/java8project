@@ -2,7 +2,7 @@ package examples.lambda.functional.interfac;
 
 @FunctionalInterface
 public interface FIConcatanator<T> {
-  public String concat(final T a, final T b);
+  public T concat(final T a, final T b);
 
   // static method does not brake the Functional interface
   static String trial() {

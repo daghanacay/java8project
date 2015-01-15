@@ -13,4 +13,8 @@ public class SomeClass {
     }
     return result;
   }
+
+  public <T> T collectDataGeneric(final List<T> list, final FIGenericConcatinator <T> visitor) {
+    return visitor.concatinate(list);
+  }
 }
