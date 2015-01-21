@@ -64,8 +64,25 @@ public class StreamsTest {
   @Test
   public void testCollectors() {
     // reduce function should be associative, i.e. (a op b) op c == a op (b op c)
-    final Map< Status, List< Task > > map  = tasks.parallelStream().collect(Collectors.groupingBy(Task::getStatus));
+    final Map<Status, List<Task>> map = tasks.parallelStream().collect(Collectors.groupingBy(Task::getStatus));
 
     System.out.println("Grouping based on status: " + map);
+  }
+
+  @Test
+  public void testComplicated() {
+    // final double totalPoints = tasks.stream().mapToDouble(task->task.getPoints()).sum();
+    final double totalPoints = tasks.stream().reduce(0.0, (sum,task)->sum+task.getPoints(), Double::sum);
+    // Calculate the weight of each tasks (as percent of total points)
+    final Collection<String> result = tasks.stream() // Stream< String >
+        .mapToInt(Task::getPoints) // IntStream
+        .asLongStream() // LongStream
+        .mapToDouble(points -> points / totalPoints) // DoubleStream
+        .boxed() // Stream< Double >
+        .mapToLong(weigth -> (long) (weigth * 100)) // LongStream
+        .mapToObj(percentage -> percentage + "%") // Stream< String>
+        .collect(Collectors.toList()); // List< String >
+
+    System.out.println(result);
   }
 }
