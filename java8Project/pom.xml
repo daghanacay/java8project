@@ -5,6 +5,18 @@
   <artifactId>java8Project</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
+  <properties>
+    <testng.version>6.1.1</testng.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -18,4 +30,6 @@
       </plugin>
     </plugins>
   </build>
+
+
 </project>
