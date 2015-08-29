@@ -1,7 +1,13 @@
 package examples.general.threading;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class GuardedBlock {
 	private boolean joy = false;
+	private Lock lock = new ReentrantLock();
+	private Condition condition = lock.newCondition();
 
 	// All the threads are going to take the lock as GuardedBlock instance
 	// object and will wait in which case the thread will release the lock
@@ -30,4 +36,23 @@ public class GuardedBlock {
 		joy = true;
 		notifyAll();
 	}
+
+	public void guardedJoyWithReantrantLockAndCondition() {
+		lock.lock();
+		try {
+			condition.await();
+		} catch (Exception e) {
+		} finally {
+			lock.unlock();
+		}
+
+		System.out.println("Joy and efficiency have been achieved!");
+	}
+
+	public void notifyJoyUseCondition() {
+		lock.lock();
+		condition.signalAll();
+		lock.unlock();
+	}
+
 }
